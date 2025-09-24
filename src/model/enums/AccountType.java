@@ -1,4 +1,9 @@
 package model.enums;
 
-public class AccountType {
+public enum AccountType {
+
+    COURANT,
+    EPARGNE,
+    SALAIRE
+
 }

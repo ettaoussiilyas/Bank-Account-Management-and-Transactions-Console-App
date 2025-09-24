@@ -1,4 +1,9 @@
 package model.enums;
 
-public class TransactionType {
+public enum  TransactionType {
+
+    DEPOT,
+    RETRAIT,
+    VIREMENT,
+    PAIEMENT
 }
