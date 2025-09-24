@@ -12,7 +12,7 @@ public interface AccountRepository {
     public boolean updateAccount(int idAccount, double balance, AccountType accountType, Client client);
     public boolean addBalance(int idAccount, double amount);
     public boolean withdrawBalance(int idAccount, double amount);
-    public boolean transferBalance(int fromAccountId, int toAccountId, double amount);
+//    public boolean transferBalance(int fromAccountId, int toAccountId, double amount);
     public Optional<Client> getClientByAccountId(int idAccount);
     public AccountType getAccountType(int idAccount);
     public Optional<Account> getAccountById(int idAccount);

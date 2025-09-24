@@ -10,15 +10,15 @@ public class Transaction {
     private double amount;
     private TransactionType transactionType;
     private Account accountDestination;
-    private Account account;
+    private Account accountOrigin;
     private LocalDateTime date;
     private String motif;
 
-    public Transaction(int idTransaction, double amount, TransactionType transactionType, Account account, LocalDateTime date, String motif, Account accountDestination){
+    public Transaction(int idTransaction, double amount, TransactionType transactionType, Account accountDestination, Account accountOrigin, LocalDateTime date, String motif){
         this.idTransaction = idTransaction;
         this.amount = amount;
         this.transactionType = transactionType;
-        this.account = account;
+        this.accountOrigin = accountOrigin;
         this.date = date;
         this.motif = motif;
         this.accountDestination = accountDestination;
@@ -57,7 +57,7 @@ public class Transaction {
     }
 
     public Account getAccount() {
-        return account;
+        return accountOrigin;
     }
 
     public String getMotif() {
@@ -77,7 +77,7 @@ public class Transaction {
     }
 
     public void setAccount(Account account) {
-        this.account = account;
+        this.accountOrigin = account;
     }
 
     public void setMotif(String motif) {
