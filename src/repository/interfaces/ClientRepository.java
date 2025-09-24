@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ClientRepository {
 
-    public boolean addClient(String idClient, String firstName, String lastName, String email, String password);
+    public boolean addClient(int idClient, String firstName, String lastName, String email, String password);
     public boolean removeClient(String idClient);
     public boolean updateClient(String idClient, String firstName, String lastName, String email, String password);
     public Optional<Client> getClientById(String idClient);

@@ -17,6 +17,7 @@ public class Account {
     private LocalDateTime dateCreated;
 
     public Account(int idAccount, double balance, AccountType accountType, Client client){
+        if (balance < 0 ) throw new IllegalArgumentException("Balance cannot be negative");
         this.idAccount = idAccount;
         this.balance = balance;
         this.accountType = accountType;
