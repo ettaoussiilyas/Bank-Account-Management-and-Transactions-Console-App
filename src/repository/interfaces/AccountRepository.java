@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AccountRepository {
+
     public boolean addAccount(int idAccount, double balance, AccountType accountType, Client client);
     public boolean removeAccount(int idAccount);
     public boolean updateAccount(int idAccount, double balance, AccountType accountType, Client client);

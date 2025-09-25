@@ -5,21 +5,23 @@ import java.util.ArrayList;
 
 public class Manager extends Person {
 
-    private int idAdministrator;
+    private int idManager;
+    private String department;
     private List<Client> clients;
 
-    public Manager(int idAdministrator, String firstName, String lastName, String email, String password){
+    public Manager(int idManager, String firstName, String lastName, String email, String password, String department) {
         super(firstName, lastName, email, password);
-        this.idAdministrator = idAdministrator;
+        this.idManager = idManager;
         this.clients = new ArrayList<Client>();
+        this.department = department;
     }
 
-    public void setIdAdministrator(int idAdministrator){
-        this.idAdministrator = idAdministrator;
+    public void setIdAdministrator(int idManager){
+        this.idManager = idManager;
     }
 
     public int getIdAdministrator(){
-        return this.idAdministrator;
+        return this.idManager;
     }
 
     public List<Client> getClients(){
@@ -28,6 +30,14 @@ public class Manager extends Person {
 
     public void setClients(List<Client> clients){
         this.clients = clients;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
 

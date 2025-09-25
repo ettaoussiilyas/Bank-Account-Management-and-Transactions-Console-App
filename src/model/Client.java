@@ -1,6 +1,7 @@
 package model;
 
 import model.Person;
+import model.Account;
 import java.util.ArrayList;
 
 
@@ -30,5 +31,11 @@ public class Client extends Person {
     public void setAccounts(ArrayList<Account> accounts){
         this.accounts = accounts;
     }
+
+    public void setAccount(Account account){
+        this.accounts.add(account);
+    }
+
+
 
 }

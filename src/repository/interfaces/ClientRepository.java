@@ -10,12 +10,12 @@ import java.util.Optional;
 public interface ClientRepository {
 
     public boolean addClient(int idClient, String firstName, String lastName, String email, String password);
-    public boolean removeClient(String idClient);
-    public boolean updateClient(String idClient, String firstName, String lastName, String email, String password);
-    public Optional<Client> getClientById(String idClient);
+    public boolean removeClient(int idClient);
+    public boolean updateClient(int idClient, String firstName, String lastName, String email, String password);
+    public Optional<Client> getClientById(int idClient);
     public Optional<Client> getClientByEmail(String email);
     public List<Client> getAllClients();
-    public List<Account> getAccountsByClientId(String idClient);
-    public boolean addAccountToClient(String idClient, Account account);
-    public boolean removeAccountFromClient(String idClient, String accountNumber);
+    public List<Account> getAccountsByClientId(int idClient);
+    public boolean addAccountToClient(int idClient, Account account);
+    public boolean removeAccountFromClient(int idClient, int accountNumber);
 }
