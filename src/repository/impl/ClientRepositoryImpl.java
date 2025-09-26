@@ -2,20 +2,34 @@ package repository.impl;
 
 import model.Account;
 import model.Client;
+import model.Manager;
 import repository.interfaces.ClientRepository;
+import repository.interfaces.ManagerRepository;
+import service.ManagerService;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class ClientRepositoryImpl implements ClientRepository {
 
-    List<Client> clients = new ArrayList<>();
+    private final List<Client> clients = new ArrayList<>();
+    private final ManagerRepository managerRepository;
+
+    public ClientRepositoryImpl() {
+        this.managerRepository = new ManagerRepositoryImpl();
+    }
 
     @Override
-    public boolean addClient(int idClient, String firstName, String lastName, String email, String password) {
+    public boolean addClient(int idClient, String firstName, String lastName, String email, String password, Manager manager) {
         Client client = new Client(idClient, firstName, lastName, email, password);
-        return clients.add(client);
+        boolean clientAdded = clients.add(client);
+        if (clientAdded) {
+            return managerRepository.addClientToManager(manager.getIdAdministrator(), idClient);
+        }
+        return false;
     }
+
 
     @Override
     public boolean removeClient(int idClient){
