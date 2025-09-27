@@ -32,23 +32,16 @@ public class ManagerService {
     }
 
     public boolean addManager(int idManager, String firstName, String lastName, String email, String password, String department) {
-        if (firstName == null || lastName == null || email == null || password == null || department == null) {
-            throw new IllegalArgumentException("All fields are required");
-        }
+
         return managerRepository.addManager(idManager, firstName, lastName, email, password, department);
     }
 
     public Optional<Manager> getManagerById(String managerId) {
-        if (managerId == null) {
-            throw new IllegalArgumentException("Manager ID cannot be null");
-        }
+
         return managerRepository.getManagerById(managerId);
     }
 
     public boolean createClient(String firstName, String lastName, String email, String password, int managerId) {
-        if (firstName == null || lastName == null || email == null || password == null) {
-            throw new IllegalArgumentException("All client fields are required");
-        }
 
         Optional<Manager> managerOpt = managerRepository.getManagerById(String.valueOf(managerId));
         if (managerOpt.isEmpty()) {
@@ -65,9 +58,6 @@ public class ManagerService {
     }
 
     public boolean updateClient(int clientId, String firstName, String lastName, String email, String password) {
-        if (firstName == null || lastName == null || email == null || password == null) {
-            throw new IllegalArgumentException("All fields are required");
-        }
 
         Optional<Client> client = clientRepository.getClientById(clientId);
         if (client.isEmpty()) {
@@ -78,9 +68,6 @@ public class ManagerService {
     }
 
     public boolean createAccount(int clientId, double initialBalance, AccountType accountType) {
-        if (initialBalance < 0 || accountType == null) {
-            throw new IllegalArgumentException("Invalid account parameters");
-        }
 
         Optional<Client> clientOpt = clientRepository.getClientById(clientId);
         if (clientOpt.isEmpty()) {
@@ -98,6 +85,7 @@ public class ManagerService {
     }
 
     public List<Client> getManagerClients(int managerId) {
+
         return managerRepository.getClientsByManagerId(managerId);
     }
 

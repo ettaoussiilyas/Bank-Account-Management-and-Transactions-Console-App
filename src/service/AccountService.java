@@ -17,16 +17,12 @@ public class AccountService {
     }
 
     public Optional<Account> getAccountById(int accountId) {
-        if (accountId < 0) {
-            throw new IllegalArgumentException("Invalid account ID");
-        }
+
         return accountRepository.getAccountById(accountId);
     }
 
     public boolean updateAccount(int accountId, double balance, AccountType accountType, Client client) {
-        if (accountId < 0 || balance < 0 || accountType == null || client == null) {
-            throw new IllegalArgumentException("Invalid parameters");
-        }
+
         return accountRepository.updateAccount(accountId, balance, accountType, client);
     }
 
@@ -38,9 +34,7 @@ public class AccountService {
     }
 
     public AccountType getAccountType(int accountId) {
-        if (accountId < 0) {
-            throw new IllegalArgumentException("Invalid account ID");
-        }
+
         return accountRepository.getAccountType(accountId);
     }
 
@@ -49,9 +43,7 @@ public class AccountService {
     }
 
     public Optional<Client> getAccountOwner(int accountId) {
-        if (accountId < 0) {
-            throw new IllegalArgumentException("Invalid account ID");
-        }
+
         return accountRepository.getClientByAccountId(accountId);
     }
 }

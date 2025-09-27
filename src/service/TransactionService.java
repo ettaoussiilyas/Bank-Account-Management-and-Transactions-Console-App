@@ -23,9 +23,6 @@ public class TransactionService {
     }
 
     public boolean createDeposit(int accountId, double amount, String motif) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Amount must be positive");
-        }
 
         Optional<Account> accountOpt = accountRepository.getAccountById(accountId);
         if (accountOpt.isEmpty()) {
@@ -48,9 +45,6 @@ public class TransactionService {
     }
 
     public boolean createWithdrawal(int accountId, double amount, String motif) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Amount must be positive");
-        }
 
         Optional<Account> accountOpt = accountRepository.getAccountById(accountId);
         if (accountOpt.isEmpty()) {
@@ -77,9 +71,6 @@ public class TransactionService {
     }
 
     public boolean createTransfer(int sourceAccountId, int destinationAccountId, double amount, String motif) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("Amount must be positive");
-        }
 
         Optional<Account> sourceAccountOpt = accountRepository.getAccountById(sourceAccountId);
         Optional<Account> destAccountOpt = accountRepository.getAccountById(destinationAccountId);
@@ -157,16 +148,11 @@ public class TransactionService {
     }
 
     public List<Transaction> filterTransactionsByType(int accountId, TransactionType type) {
-        if (type == null) {
-            throw new IllegalArgumentException("Transaction type cannot be null");
-        }
         return transactionRepository.filterTransactionsByType(accountId, type);
     }
 
     public List<Transaction> filterTransactionsByAmount(int accountId, double minAmount, double maxAmount) {
-        if (minAmount < 0 || maxAmount < 0 || minAmount > maxAmount) {
-            throw new IllegalArgumentException("Invalid amount range");
-        }
+
         return transactionRepository.filterTransactionsByAmount(accountId, minAmount, maxAmount);
     }
 
@@ -178,9 +164,7 @@ public class TransactionService {
     }
 
     public List<Transaction> getSuspiciousTransactions(int accountId, double thresholdAmount, int repetitionCount) {
-        if (thresholdAmount <= 0 || repetitionCount <= 0) {
-            throw new IllegalArgumentException("Invalid threshold parameters");
-        }
+
         return transactionRepository.getSuspiciousTransactions(accountId, thresholdAmount, repetitionCount);
     }
 

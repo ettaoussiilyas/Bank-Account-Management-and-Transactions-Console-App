@@ -28,16 +28,12 @@ public class ClientService {
     }
 
     public Optional<Client> getClientInformation(int clientId) {
-        if (clientId < 0) {
-            throw new IllegalArgumentException("Invalid client ID");
-        }
+
         return clientRepository.getClientById(clientId);
     }
 
     public List<Account> getClientAccounts(int clientId) {
-        if (clientId < 0) {
-            throw new IllegalArgumentException("Invalid client ID");
-        }
+
         Optional<Client> client = clientRepository.getClientById(clientId);
         if (client.isEmpty()) {
             return List.of();
@@ -46,9 +42,7 @@ public class ClientService {
     }
 
     public double calculateTotalBalance(int clientId){
-        if( clientId < 0){
-            throw new IllegalArgumentException("Invalid client id");
-        }
+
         List<Account> accounts = clientRepository.getAccountsByClientId(clientId);
         double total = 0;
         for (Account account : accounts){
@@ -58,37 +52,25 @@ public class ClientService {
     }
 
     public List<Transaction> filterTransactionsByType(int clientId, TransactionType type) {
-        // check on type
-        if (type == null || type != TransactionType.DEPOT && type != TransactionType.RETRAIT && type != TransactionType.VIREMENT) {
-            throw new IllegalArgumentException("Invalid transaction type");
-        }
-        if (clientId < 0) {
-            throw new IllegalArgumentException("Invalid client id");
-        }
+
         List<Transaction> transactions = transactionRepository.filterTransactionsByType(clientId, type);
         return transactions;
     }
 
     public List<Transaction> filterTransactionsByAmount(int clientId, double minAmount, double maxAmount){
-        if( clientId < 0 || minAmount < 0 || maxAmount < 0 || minAmount > maxAmount){
-            throw new IllegalArgumentException("Invalid arguments");
-        }
+
         List<Transaction> transactions = transactionRepository.filterTransactionsByAmount(clientId, minAmount, maxAmount);
         return transactions;
     }
 
     public List<Transaction> filterTransactionsByDate(int clientId, LocalDateTime startDate, LocalDateTime endDate){
-        if( clientId < 0 || startDate == null || endDate == null || startDate.isAfter(endDate)){
-            throw new IllegalArgumentException("Invalid arguments");
-        }
+
         List<Transaction> transactions = transactionRepository.filterTransactionsByDate(clientId, startDate, endDate);
         return transactions;
     }
 
     public double calculateTotalDeposits(int clientId){
-        if( clientId < 0){
-            throw new IllegalArgumentException("Invalid client id");
-        }
+
         List<Transaction> transactions = transactionRepository.filterTransactionsByType(clientId, TransactionType.DEPOT);
         double total = 0;
         for (Transaction transaction : transactions){
@@ -98,9 +80,7 @@ public class ClientService {
     }
 
     public double calculateTotalWithdrawals(int clientId){
-        if( clientId < 0){
-            throw new IllegalArgumentException("Invalid client id");
-        }
+
         List<Transaction> transactions = transactionRepository.filterTransactionsByType(clientId, TransactionType.RETRAIT);
         double total = 0;
         for (Transaction transaction : transactions){
@@ -110,9 +90,7 @@ public class ClientService {
     }
 
     public boolean makeDeposit(int accountId, double amount){
-        if( accountId < 0 || amount <= 0){
-            throw new IllegalArgumentException("Invalid arguments");
-        }
+
         Optional<Account> accountOpt = accountRepository.getAccountById(accountId);
         if (accountOpt.isEmpty()){
             return false;
@@ -126,9 +104,7 @@ public class ClientService {
     }
 
     public boolean makeWithdrawal(int accountId, double amount){
-        if( accountId <0 || amount <= 0){
-            throw new IllegalArgumentException("Invalid arguments");
-        }
+
         Optional<Account> account = accountRepository.getAccountById(accountId);
 
         if( account.isEmpty()){
@@ -145,9 +121,7 @@ public class ClientService {
     }
 
     public boolean makeTransfer(int sourceAccountId, int destinationAccountId, double amount){
-        if (sourceAccountId < 0 || destinationAccountId < 0 || amount <= 0) {
-            throw  new IllegalArgumentException("Invalid arguments");
-        }
+
         Optional<Account> sourceAccountOpt = accountRepository.getAccountById(sourceAccountId);
         Optional<Account> destinationAccountIdOpt = accountRepository.getAccountById(destinationAccountId);
         if( sourceAccountOpt.isEmpty() || destinationAccountIdOpt.isEmpty()){
