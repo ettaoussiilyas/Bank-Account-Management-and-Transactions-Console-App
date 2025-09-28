@@ -12,6 +12,7 @@ public class AccountView {
         System.out.println("4. Back to Main Menu");
         System.out.print("Choose an option: ");
         int option = scanner.nextInt();
+        scanner.nextLine(); // Clear buffer
         return option;
     }
 }

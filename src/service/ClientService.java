@@ -64,9 +64,16 @@ public class ClientService {
     }
 
     public List<Transaction> filterTransactionsByDate(int clientId, LocalDateTime startDate, LocalDateTime endDate){
-
-        List<Transaction> transactions = transactionRepository.filterTransactionsByDate(clientId, startDate, endDate);
-        return transactions;
+        try {
+            if (startDate == null && endDate == null) {
+                return transactionRepository.getAllTransactionsByClientId(clientId);
+            }
+            List<Transaction> transactions = transactionRepository.filterTransactionsByDate(clientId, startDate, endDate);
+            return transactions;
+        } catch (Exception e) {
+            System.err.println("Error filtering transactions: " + e.getMessage());
+            return List.of();
+        }
     }
 
     public double calculateTotalDeposits(int clientId){

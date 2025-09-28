@@ -13,9 +13,9 @@ public class AuthRepositoryImpl implements AuthRepository {
     private final ClientRepository clientRepository;
     private final ManagerRepository managerRepository;
 
-    public AuthRepositoryImpl(ClientRepository clientRepository, ManagerRepository managerRepository) {
-        this.clientRepository = clientRepository;
-        this.managerRepository = managerRepository;
+    public AuthRepositoryImpl() {
+        this.clientRepository = new ClientRepositoryImpl();
+        this.managerRepository = new ManagerRepositoryImpl();
     }
 
     @Override

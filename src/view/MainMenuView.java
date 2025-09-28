@@ -22,7 +22,9 @@ public class MainMenuView {
         System.out.println("1. Login");
         System.out.println("2. Exit");
         System.out.print("Select an option: ");
-        return scanner.nextInt();
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Clear buffer
+        return choice;
     }
 
 }
