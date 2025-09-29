@@ -50,4 +50,26 @@ public class ManagerController {
             return false;
         }
     }
+
+    public boolean deleteClient(int clientId) {
+        try {
+            return managerService.deleteClient(clientId);
+        } catch (Exception e) {
+            MessageView.displayError("Error deleting client: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean deleteAccount(int accountId) {
+        try {
+            return managerService.deleteAccount(accountId);
+        } catch (Exception e) {
+            MessageView.displayError("Error deleting account: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public List<Transaction> getAllTransactions() {
+        return managerService.getAllTransactions();
+    }
 }

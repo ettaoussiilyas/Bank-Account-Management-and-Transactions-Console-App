@@ -52,7 +52,12 @@ public class ManagerService {
         boolean clientCreated = clientRepository.addClient(newClientId, firstName, lastName, email, password, managerOpt.get());
         
         if (clientCreated) {
-            return managerRepository.addClientToManager(managerId, newClientId);
+            // Add client to manager's list
+            Optional<Client> newClient = clientRepository.getClientById(newClientId);
+            if (newClient.isPresent()) {
+                managerOpt.get().getClients().add(newClient.get());
+                return true;
+            }
         }
         return false;
     }
@@ -91,6 +96,41 @@ public class ManagerService {
 
     public List<Manager> getAllManagers() {
         return managerRepository.getAllManagers();
+    }
+
+    public boolean deleteClient(int clientId) {
+        Optional<Client> clientOpt = clientRepository.getClientById(clientId);
+        if (clientOpt.isEmpty()) {
+            throw new NoSuchElementException("Client not found");
+        }
+
+        // Remove client from all managers
+        List<Manager> managers = managerRepository.getAllManagers();
+        for (Manager manager : managers) {
+            manager.getClients().removeIf(client -> client.getIdClient() == clientId);
+        }
+
+        return clientRepository.removeClient(clientId);
+    }
+
+    public boolean deleteAccount(int accountId) {
+        Optional<Account> accountOpt = accountRepository.getAccountById(accountId);
+        if (accountOpt.isEmpty()) {
+            throw new NoSuchElementException("Account not found");
+        }
+
+        Account account = accountOpt.get();
+        Client client = account.getClient();
+        
+        // Remove account from client's account list
+        client.getAccounts().removeIf(acc -> acc.getIdAccount() == accountId);
+        
+        // Remove account from repository
+        return accountRepository.removeAccount(accountId);
+    }
+
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.getAllTransactions();
     }
 
 }

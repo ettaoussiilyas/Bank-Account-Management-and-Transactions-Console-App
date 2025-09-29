@@ -135,5 +135,14 @@ public class ClientController {
         return clientService.getClientAccounts(clientId);
     }
 
+    public boolean deleteAccount(int accountId) {
+        try {
+            return clientService.deleteAccount(accountId, clientId);
+        } catch (Exception e) {
+            MessageView.displayError("Error deleting account: " + e.getMessage());
+            return false;
+        }
+    }
+
 
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class AccountRepositoryImpl implements AccountRepository {
-    List<Account> accounts = new ArrayList<>();
+    private static final List<Account> accounts = new ArrayList<>();
 
     @Override
     public boolean addAccount(int idAccount, double balance, AccountType accountType, Client client){

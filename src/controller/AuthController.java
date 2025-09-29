@@ -18,15 +18,21 @@ public class AuthController {
 
     public Optional<Person> handleLogin() {
         loginView.display();
-        String[] credentials = loginView.getCredentials();
-        Optional<Person> loggedInUser = authService.login(credentials[0], credentials[1]);
+        int choice = loginView.getChoice();
+        
+        if (choice == 1) {
+            String[] credentials = loginView.getCredentials();
+            Optional<Person> loggedInUser = authService.login(credentials[0], credentials[1]);
 
-        if (loggedInUser.isPresent()) {
-            MessageView.displaySuccess("Login successful!");
+            if (loggedInUser.isPresent()) {
+                MessageView.displaySuccess("Login successful!");
+            } else {
+                MessageView.displayError("Invalid credentials!");
+            }
+
+            return loggedInUser;
         } else {
-            MessageView.displayError("Invalid credentials!");
+            return Optional.empty();
         }
-
-        return loggedInUser;
     }
 }

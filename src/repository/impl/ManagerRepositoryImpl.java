@@ -3,18 +3,20 @@ package repository.impl;
 import model.Manager;
 import model.Client;
 import repository.interfaces.ManagerRepository;
-import repository.interfaces.ClientRepository;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class ManagerRepositoryImpl implements ManagerRepository {
-    private final List<Manager> managers = new ArrayList<>();
-    private final ClientRepository clientRepository;
+    private static final List<Manager> managers = new ArrayList<>();
+
+    static {
+        // Add a default manager for testing (only once)
+        Manager defaultManager = new Manager(1, "Admin", "Manager", "admin@bank.com", "admin123", "IT");
+        managers.add(defaultManager);
+    }
 
     public ManagerRepositoryImpl() {
-        this.clientRepository = new ClientRepositoryImpl();
     }
 
     @Override
@@ -74,36 +76,13 @@ public class ManagerRepositoryImpl implements ManagerRepository {
             return new ArrayList<>();
         }
 
-        List<Client> clients = new ArrayList<>();
-        for (Client client : managerOpt.get().getClients()) {
-            clientRepository.getClientById(client.getIdClient())
-                    .ifPresent(clients::add);
-        }
-        return clients;
+        return managerOpt.get().getClients();
     }
 
     @Override
     public boolean addClientToManager(int idManager, int idClient) {
-        Optional<Manager> managerOpt = managers.stream()
-                .filter(manager -> manager.getIdAdministrator() == idManager)
-                .findFirst();
-
-        if (managerOpt.isEmpty()) {
-            return false;
-        }
-
-        Optional<Client> clientOpt = clientRepository.getClientById(idClient);
-        if (clientOpt.isEmpty()) {
-            return false;
-        }
-
-        Manager manager = managerOpt.get();
-        if (manager.getClients().stream()
-                .anyMatch(client -> client.getIdClient() == idClient)) {
-            return false;
-        }
-
-        return manager.getClients().add(clientOpt.get());
+        // This method will be handled by the service layer
+        return true;
     }
 
     @Override

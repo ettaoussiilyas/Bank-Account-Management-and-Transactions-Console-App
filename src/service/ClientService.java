@@ -144,4 +144,26 @@ public class ClientService {
         return true;
     }
 
+    public boolean deleteAccount(int accountId, int clientId) {
+        Optional<Account> accountOpt = accountRepository.getAccountById(accountId);
+        if (accountOpt.isEmpty()) {
+            return false;
+        }
+        
+        Account account = accountOpt.get();
+        // Check if account belongs to this client
+        if (account.getClient().getIdClient() != clientId) {
+            return false;
+        }
+        
+        // Remove account from client's account list
+        Optional<Client> clientOpt = clientRepository.getClientById(clientId);
+        if (clientOpt.isPresent()) {
+            clientOpt.get().getAccounts().removeIf(acc -> acc.getIdAccount() == accountId);
+        }
+        
+        // Remove account from repository
+        return accountRepository.removeAccount(accountId);
+    }
+
 }

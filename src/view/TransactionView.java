@@ -9,11 +9,12 @@ public class TransactionView implements View {
 
     @Override
     public void display() {
-        System.out.println("=== Transaction Menu ===");
+        System.out.println("\n=== Transaction Menu ===");
         System.out.println("1. Deposit");
         System.out.println("2. Withdraw");
         System.out.println("3. Transfer");
         System.out.println("4. Back");
+        System.out.print("Choose an option: ");
     }
 
     public double getAmount() {
@@ -33,5 +34,10 @@ public class TransactionView implements View {
 
     public int getChoice() {
         return Integer.parseInt(scanner.nextLine());
+    }
+
+    public void pauseForUser() {
+        System.out.print("\nPress Enter to continue...");
+        scanner.nextLine();
     }
 }

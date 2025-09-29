@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TransactionRepositoryImpl implements TransactionRepository {
-    List<Transaction> transactions = new ArrayList<>();
+    private static final List<Transaction> transactions = new ArrayList<>();
 
     @Override
     public boolean createTransaction(int idTransaction, double amount, TransactionType transactionType, Account accountDestination, Account accountOrigin, LocalDateTime date, String motif) {

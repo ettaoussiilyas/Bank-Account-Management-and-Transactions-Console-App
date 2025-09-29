@@ -4,30 +4,21 @@ import model.Account;
 import model.Client;
 import model.Manager;
 import repository.interfaces.ClientRepository;
-import repository.interfaces.ManagerRepository;
-import service.ManagerService;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class ClientRepositoryImpl implements ClientRepository {
 
-    private final List<Client> clients = new ArrayList<>();
-    private final ManagerRepository managerRepository;
+    private static final List<Client> clients = new ArrayList<>();
 
     public ClientRepositoryImpl() {
-        this.managerRepository = new ManagerRepositoryImpl();
     }
 
     @Override
     public boolean addClient(int idClient, String firstName, String lastName, String email, String password, Manager manager) {
         Client client = new Client(idClient, firstName, lastName, email, password);
-        boolean clientAdded = clients.add(client);
-        if (clientAdded) {
-            return managerRepository.addClientToManager(manager.getIdAdministrator(), idClient);
-        }
-        return false;
+        return clients.add(client);
     }
 
 

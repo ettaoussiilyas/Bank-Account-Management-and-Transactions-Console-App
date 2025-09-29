@@ -10,9 +10,10 @@ public class LoginView implements View {
 
     @Override
     public void display() {
-        System.out.println("=== Login System ===");
+        System.out.println("\n=== Login System ===");
         System.out.println("1. Login");
-        System.out.println("2. Exit");
+        System.out.println("2. Back to Main Menu");
+        System.out.print("Choose an option: ");
     }
 
     public String[] getCredentials() {
