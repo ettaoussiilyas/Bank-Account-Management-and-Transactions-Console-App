@@ -74,6 +74,35 @@ public class ClientMenuView implements View {
         System.out.println("Total Withdrawals: " + totalWithdrawals);
     }
 
+    public int getFilterChoice() {
+        System.out.println("\n=== Filter Transactions ===");
+        System.out.println("1. Filter by Type");
+        System.out.println("2. Filter by Amount Range");
+        System.out.println("3. Filter by Date Range");
+        System.out.println("4. Back");
+        System.out.print("Choose filter option: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public int getTransactionTypeChoice() {
+        System.out.println("\n=== Transaction Types ===");
+        System.out.println("1. DEPOT (Deposits)");
+        System.out.println("2. RETRAIT (Withdrawals)");
+        System.out.println("3. VIREMENT (Transfers)");
+        System.out.print("Choose transaction type: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public double getMinAmount() {
+        System.out.print("Enter minimum amount: ");
+        return Double.parseDouble(scanner.nextLine());
+    }
+
+    public double getMaxAmount() {
+        System.out.print("Enter maximum amount: ");
+        return Double.parseDouble(scanner.nextLine());
+    }
+
     public void pauseForUser() {
         System.out.print("\nPress Enter to continue...");
         scanner.nextLine();

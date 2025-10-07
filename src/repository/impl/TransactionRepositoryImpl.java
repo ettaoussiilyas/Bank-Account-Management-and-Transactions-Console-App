@@ -73,19 +73,19 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     }
 
     @Override
-    public List<Transaction> filterTransactionsByType(int idAccount, TransactionType transactionType) {
+    public List<Transaction> filterTransactionsByType(int idClient, TransactionType transactionType) {
         return transactions.stream()
-                .filter(t -> (t.getAccountDestination() != null && t.getAccountDestination().getIdAccount() == idAccount
-                        || t.getAccount() != null && t.getAccount().getIdAccount() == idAccount)
+                .filter(t -> ((t.getAccountDestination() != null && t.getAccountDestination().getClient().getIdClient() == idClient)
+                        || (t.getAccount() != null && t.getAccount().getClient().getIdClient() == idClient))
                         && t.getTransactionType() == transactionType)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Transaction> filterTransactionsByAmount(int idAccount, double minAmount, double maxAmount) {
+    public List<Transaction> filterTransactionsByAmount(int idClient, double minAmount, double maxAmount) {
         return transactions.stream()
-                .filter(t -> (t.getAccountDestination() != null && t.getAccountDestination().getIdAccount() == idAccount
-                        || t.getAccount() != null && t.getAccount().getIdAccount() == idAccount)
+                .filter(t -> ((t.getAccountDestination() != null && t.getAccountDestination().getClient().getIdClient() == idClient)
+                        || (t.getAccount() != null && t.getAccount().getClient().getIdClient() == idClient))
                         && t.getAmount() >= minAmount && t.getAmount() <= maxAmount)
                 .collect(Collectors.toList());
     }

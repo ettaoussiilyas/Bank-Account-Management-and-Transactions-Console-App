@@ -2,11 +2,13 @@ import controller.*;
 import model.Client;
 import model.Manager;
 import model.Person;
+import model.Transaction;
 import repository.impl.*;
 import repository.interfaces.*;
 import service.*;
 import view.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -100,8 +102,7 @@ public class Main {
                     view.pauseForUser();
                     break;
                 case 5: // Filter Transactions
-                    MessageView.displayInfo("Transaction filtering not yet implemented");
-                    view.pauseForUser();
+                    handleFilterTransactions(view, clientController);
                     break;
                 case 6: // Calculate Totals
                     handleCalculateTotals(view, clientController);
@@ -360,6 +361,56 @@ public class Main {
             view.displayTotals(totalBalance, totalDeposits, totalWithdrawals);
         } catch (Exception e) {
             MessageView.displayError("Error calculating totals: " + e.getMessage());
+        }
+        view.pauseForUser();
+    }
+
+    private static void handleFilterTransactions(ClientMenuView view, ClientController controller) {
+        try {
+            int filterChoice = view.getFilterChoice();
+            List<Transaction> filteredTransactions = null;
+
+            switch (filterChoice) {
+                case 1: // Filter by Type
+                    int typeChoice = view.getTransactionTypeChoice();
+                    model.enums.TransactionType transactionType;
+                    switch (typeChoice) {
+                        case 1:
+                            transactionType = model.enums.TransactionType.DEPOT;
+                            break;
+                        case 2:
+                            transactionType = model.enums.TransactionType.RETRAIT;
+                            break;
+                        case 3:
+                            transactionType = model.enums.TransactionType.VIREMENT;
+                            break;
+                        default:
+                            MessageView.displayError("Invalid transaction type!");
+                            return;
+                    }
+                    filteredTransactions = controller.filterTransactionsByType(transactionType);
+                    break;
+                case 2: // Filter by Amount Range
+                    double minAmount = view.getMinAmount();
+                    double maxAmount = view.getMaxAmount();
+                    filteredTransactions = controller.filterTransactionsByAmount(minAmount, maxAmount);
+                    break;
+                case 3: // Filter by Date Range
+                    MessageView.displayInfo("Date filtering not yet implemented");
+                    view.pauseForUser();
+                    return;
+                case 4: // Back
+                    return;
+                default:
+                    MessageView.displayError("Invalid option!");
+                    return;
+            }
+
+            if (filteredTransactions != null) {
+                view.displayTransactions(filteredTransactions);
+            }
+        } catch (Exception e) {
+            MessageView.displayError("Error filtering transactions: " + e.getMessage());
         }
         view.pauseForUser();
     }

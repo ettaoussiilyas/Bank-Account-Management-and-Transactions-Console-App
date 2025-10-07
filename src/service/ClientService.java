@@ -33,17 +33,15 @@ public class ClientService {
     }
 
     public List<Account> getClientAccounts(int clientId) {
-
-        Optional<Client> client = clientRepository.getClientById(clientId);
-        if (client.isEmpty()) {
-            return List.of();
-        }
-        return clientRepository.getAccountsByClientId(clientId);
+        return accountRepository.getAllAccounts().stream()
+                .filter(account -> account.getClient().getIdClient() == clientId)
+                .collect(java.util.stream.Collectors.toList());
     }
 
     public double calculateTotalBalance(int clientId){
-
-        List<Account> accounts = clientRepository.getAccountsByClientId(clientId);
+        List<Account> accounts = accountRepository.getAllAccounts().stream()
+                .filter(account -> account.getClient().getIdClient() == clientId)
+                .collect(java.util.stream.Collectors.toList());
         double total = 0;
         for (Account account : accounts){
             total += account.getBalance();

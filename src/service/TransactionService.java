@@ -30,7 +30,7 @@ public class TransactionService {
         }
 
         Account account = accountOpt.get();
-        account.setBalance(account.getBalance() + amount);
+        accountRepository.addBalance(accountId, amount);
 
         int newTransactionId = (int) (Math.random() * 100000);
         return transactionRepository.createTransaction(
@@ -56,7 +56,7 @@ public class TransactionService {
             throw new ArithmeticException("Insufficient funds");
         }
 
-        account.setBalance(account.getBalance() - amount);
+        accountRepository.withdrawBalance(accountId, amount);
 
         int newTransactionId = (int) (Math.random() * 100000);
         return transactionRepository.createTransaction(
@@ -86,8 +86,8 @@ public class TransactionService {
             throw new ArithmeticException("Insufficient funds in source account");
         }
 
-        sourceAccount.setBalance(sourceAccount.getBalance() - amount);
-        destAccount.setBalance(destAccount.getBalance() + amount);
+        accountRepository.withdrawBalance(sourceAccountId, amount);
+        accountRepository.addBalance(destinationAccountId, amount);
 
         int newTransactionId = (int) (Math.random() * 100000);
         return transactionRepository.createTransaction(

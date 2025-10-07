@@ -144,5 +144,13 @@ public class ClientController {
         }
     }
 
+    public List<Transaction> filterTransactionsByType(model.enums.TransactionType type) {
+        return clientService.filterTransactionsByType(clientId, type);
+    }
+
+    public List<Transaction> filterTransactionsByAmount(double minAmount, double maxAmount) {
+        return clientService.filterTransactionsByAmount(clientId, minAmount, maxAmount);
+    }
+
 
 }
