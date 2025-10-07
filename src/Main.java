@@ -47,7 +47,7 @@ public class Main {
 
                 switch (choice) {
                     case 1:
-                        Optional<Person> loggedInUser = authController.handleLogin();
+                        Optional<Person> loggedInUser = authController.handleLogin(loginView);
                         if (loggedInUser.isPresent()) {
                             Person user = loggedInUser.get();
                             if (user instanceof Client) {
@@ -84,12 +84,12 @@ public class Main {
             int choice = view.getChoice();
 
             switch (choice) {
-                case 1: // View Accounts
-                    view.displayAccounts(clientController.getClientAccounts());
+                case 1: // View Personal Information
+                    view.displayPersonalInfo(client);
                     view.pauseForUser();
                     break;
-                case 2: // Create Account
-                    MessageView.displayInfo("This feature is not available for clients");
+                case 2: // View Accounts
+                    view.displayAccounts(clientController.getClientAccounts());
                     view.pauseForUser();
                     break;
                 case 3: // Delete Account
@@ -99,10 +99,17 @@ public class Main {
                     view.displayTransactions(clientController.getClientTransactions());
                     view.pauseForUser();
                     break;
-                case 5: // Make Transaction
+                case 5: // Filter Transactions
+                    MessageView.displayInfo("Transaction filtering not yet implemented");
+                    view.pauseForUser();
+                    break;
+                case 6: // Calculate Totals
+                    handleCalculateTotals(view, clientController);
+                    break;
+                case 7: // Make Transaction
                     handleTransactionMenu(transactionController, transactionView);
                     break;
-                case 6: // Logout
+                case 8: // Logout
                     sessionActive = false;
                     break;
                 default:
@@ -270,6 +277,9 @@ public class Main {
                 case 3:
                     accountType = model.enums.AccountType.SALAIRE;
                     break;
+                case 4:
+                    accountType = model.enums.AccountType.DEPOTATERME;
+                    break;
                 default:
                     MessageView.displayError("Invalid account type!");
                     return;
@@ -334,6 +344,22 @@ public class Main {
             }
         } catch (Exception e) {
             MessageView.displayError("Error deleting account: " + e.getMessage());
+        }
+        view.pauseForUser();
+    }
+
+    private static void handleCalculateTotals(ClientMenuView view, ClientController controller) {
+        try {
+            ClientService clientService = new ClientService();
+            int clientId = controller.getClientAccounts().get(0).getClient().getIdClient();
+            
+            double totalBalance = clientService.calculateTotalBalance(clientId);
+            double totalDeposits = clientService.calculateTotalDeposits(clientId);
+            double totalWithdrawals = clientService.calculateTotalWithdrawals(clientId);
+            
+            view.displayTotals(totalBalance, totalDeposits, totalWithdrawals);
+        } catch (Exception e) {
+            MessageView.displayError("Error calculating totals: " + e.getMessage());
         }
         view.pauseForUser();
     }

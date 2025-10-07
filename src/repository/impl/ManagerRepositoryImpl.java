@@ -11,8 +11,7 @@ public class ManagerRepositoryImpl implements ManagerRepository {
     private static final List<Manager> managers = new ArrayList<>();
 
     static {
-        // Add a default manager for testing (only once)
-        Manager defaultManager = new Manager(1, "Admin", "Manager", "admin@bank.com", "admin123", "IT");
+        Manager defaultManager = new Manager(1, "Manager", "Manager", "manager@bank.com", "manager123", "IT");
         managers.add(defaultManager);
     }
 

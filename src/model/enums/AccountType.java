@@ -4,6 +4,7 @@ public enum AccountType {
 
     COURANT,
     EPARGNE,
-    SALAIRE
+    SALAIRE,
+    DEPOTATERME
 
 }

@@ -2,6 +2,7 @@ package controller;
 
 import model.Client;
 import model.Manager;
+import model.Transaction;
 import model.enums.AccountType;
 import service.ManagerService;
 import view.MessageView;

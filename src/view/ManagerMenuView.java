@@ -64,6 +64,7 @@ public class ManagerMenuView implements View {
         System.out.println("1. COURANT (Current Account)");
         System.out.println("2. EPARGNE (Savings Account)");
         System.out.println("3. SALAIRE (Salary Account)");
+        System.out.println("4. DEPOTATERME (Term Deposit)");
         System.out.print("Choose account type: ");
     }
 
